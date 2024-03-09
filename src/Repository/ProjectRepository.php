@@ -21,6 +21,16 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
+        // Ajout de la méthode pour trouver les 8 derniers projets
+        public function findLatest($limit): array
+        {
+            return $this->createQueryBuilder('p')
+                ->orderBy('p.createdAt', 'DESC')
+                ->setMaxResults($limit)
+                ->getQuery()
+                ->getResult();
+        }
+
     //    /**
     //     * @return Project[] Returns an array of Project objects
     //     */

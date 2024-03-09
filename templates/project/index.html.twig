@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+{% block projects %}active
+{% endblock %}
+{% block body %}
+	<header class="bg-dark py-5">
+		<div class="container px-4 px-lg-5">
+			<div class="text-center text-white">
+				<h1 class="display-4 fw-bolder">Les projets</h1>
+				<p class="lead fw-normal text-white-50 mb-0">Tous les projets partagés par nos POCeurs !</p>
+			</div>
+		</div>
+	</header>
+
+	<section class="py-3">
+		<div class="container">
+            <span class="lead">Filtrer la recherche</span>
+			<form action="{{ path('project_filters') }}" method="post" class="mt-1 d-flex justify-content-start gap-3">
+				<select name="tech" id="tech" class="btn btn-outline-dark">
+					<option value="" default hidden>Toutes les techs</option>
+                    {% for techno in tech %}
+                        <option value="{{ techno.id }}">{{ techno.name }}</option>
+                    {% endfor %}
+				</select>
+				<select name="category" id="category" class="btn btn-outline-dark">
+					<option value="" default hidden>Toutes les catégories</option>
+                    {% for category in category %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+				</select>
+                <input type="submit" value="Filtrer" class="btn btn-outline-dark">
+			</form>
+		</div>
+	</section>
+
+	<section class="py-5">
+		<div class="container px-4 px-lg-5 mt-5">
+			{% if project %}
+				<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
+
+					{% for project in project %}
+						<div class="col mb-5">
+							<div
+								class="card h-100">
+								<!-- Product image-->
+								<img class="card-img-top" 
+                                {%if project.thumbnail%}
+                                    src="{{ asset(project.thumbnail) }}" 
+                                {% else %} 
+                                    src="{{ asset('images/unvailable.jpg') }}"
+                                {% endif %} alt="..." />
+								<!-- Product details-->
+								<div class="card-body p-4">
+									<div
+										class="text-center">
+										<!-- Product name-->
+										<h5 class="fw-bolder">{{ project.name }}</h5>
+										<!-- Product price-->
+										{{ project.dateStart|date('m/Y') }}
+										-
+										{{ project.dateEnd|date('m/Y') }}
+									</div>
+								</div>
+								<!-- Product actions-->
+								<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+									<div class="text-center">
+										<a class="btn btn-outline-dark mt-auto" href="#">Voir le projet</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				{% else %}
+					<div class="row gx-4 gx-lg-5 justify-content-center">
+						<div class="text-center">
+							<p class="lead fw-normal">Il n'y a pas grand chose ici...</p>
+							<button class="btn btn-outline-dark">
+								<i class="bi-plus" width="20px"></i>Publiez une projet</button>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</section>
+{% endblock %}

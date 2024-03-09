@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block accueil %}active{% endblock %}
+{% block body %}
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Poc & Share</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Créer, partager, recommencer !</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            {% if latestProjects %}
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+                    {% for project in latestProjects %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" 
+                            {%if project.thumbnail%}
+                                src="{{ asset(project.thumbnail) }}" 
+                            {% else %} 
+                                src="{{ asset('images/unvailable.jpg') }}"
+                            {% endif %} alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{ project.name }}</h5>
+                                    <!-- Product price-->
+                                    {{ project.dateStart|date('m/Y') }} - {{ project.dateEnd|date('m/Y') }}
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Voir le projet</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %} 
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="text-center"> 
+                        <p class="lead fw-normal">Il n'y a pas grand chose ici...</p>
+                        <button class="btn btn-outline-dark"><i class="bi-plus" width="20px"></i>Publiez une projet</button>
+                    </div>
+                </div>
+            {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
