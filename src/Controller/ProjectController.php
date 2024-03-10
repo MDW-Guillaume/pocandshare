@@ -94,6 +94,11 @@ class ProjectController extends AbstractController
     #[Route('/projet/add', name: 'projet_add')]
     public function create(Security $security, ManagerRegistry $doctrine, Request $request, SluggerInterface $slugger): Response
     {
+        // Utilisateur non connecté
+        if(!$security->getUser()){
+            return new RedirectResponse($this->generateUrl('app_login'));
+        }
+
         $project = new Project();
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
@@ -140,7 +145,7 @@ class ProjectController extends AbstractController
 
         // Utilisateur non connecté
         if(!$security->getUser()){
-            return new RedirectResponse($this->generateUrl('home'));
+            return new RedirectResponse($this->generateUrl('app_login'));
         }
 
         // Utilisateur non créateur
