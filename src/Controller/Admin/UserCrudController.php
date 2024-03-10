@@ -37,7 +37,7 @@ class UserCrudController extends AbstractCrudController
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         // Encodez le mot de passe si nécessaire
-        if ($entityInstance instanceof Users) {
+        if ($entityInstance instanceof User) {
             $entityInstance->setPassword(
                 $this->passwordHasher->hashPassword($entityInstance, $entityInstance->getPassword())
             );

@@ -42,12 +42,7 @@
 							<div
 								class="card h-100">
 								<!-- Product image-->
-								<img class="card-img-top" 
-                                {%if project.thumbnail%}
-                                    src="{{ asset(project.thumbnail) }}" 
-                                {% else %} 
-                                    src="{{ asset('images/unvailable.jpg') }}"
-                                {% endif %} alt="..." />
+								<img class="card-img-top" src="{{ asset(project.thumbnail) }}" alt="..." />
 								<!-- Product details-->
 								<div class="card-body p-4">
 									<div

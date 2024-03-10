@@ -27,7 +27,8 @@ class ProjectCrudController extends AbstractCrudController
     {        
         yield FormField::addTab('Général');
         yield IdField::new('id')->hideOnForm();
-        yield ArrayField::new('user', 'Utilisateur')->hideOnIndex();
+        yield ArrayField::new('user', 'Utilisateur')
+        ->onlyOnForms();
         yield AssociationField::new('user', 'Utilisateur');
         yield TextField::new('name');
 
@@ -35,15 +36,16 @@ class ProjectCrudController extends AbstractCrudController
         yield ArrayField::new('tech', 'Technologies');
         yield AssociationField::new('tech', 'Technologies')
         ->setFormTypeOption('multiple', true)
-        ->hideOnIndex();
-        yield ArrayField::new('category', 'Catégorie');
+        ->onlyOnForms();
+        yield ArrayField::new('category', 'Catégorie')
+        ->onlyOnForms();
         yield AssociationField::new('category', 'Catégorie');
 
         yield FormField::addTab('Détails');
         yield TextEditorField::new('description')->hideOnIndex();
         yield ImageField::new('thumbnail')
         ->setUploadDir('public/images')
-        ->setBasePath('public/images')
+        // ->setBasePath('public/images')
         ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]');
         yield TextField::new('link')->hideOnIndex();
         

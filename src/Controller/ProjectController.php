@@ -134,7 +134,7 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/projet/{id}/edit', name: 'projet_edit')]
-    public function edit(Security $security, ManagerRegistry $doctrine, Request $request, SluggerInterface $slugger, $id): Response
+    public function edit(Security $security, ManagerRegistry $doctrine, Request $request, $id): Response
     {
         $project = $doctrine->getRepository(Project::class)->find($id);
 
@@ -170,12 +170,40 @@ class ProjectController extends AbstractController
     }   
     
     #[Route('/projet/{id}/show', name: 'projet_show')]
-    public function show(Security $security, ManagerRegistry $doctrine, Request $request, SluggerInterface $slugger, $id): Response
+    public function show(ManagerRegistry $doctrine, $id): Response
     {
         $project = $doctrine->getRepository(Project::class)->find($id);
 
         return $this->render('project/show.html.twig', [
             'project' => $project,
         ]);
-    }   
+    }  
+    
+    #[Route('/projet/{id}/delete', name: 'projet_delete')]
+    public function delete(Security $security, ManagerRegistry $doctrine, EntityManagerInterface $entityManager, Request $request, $id): Response
+    {
+        $project = $doctrine->getRepository(Project::class)->find($id);
+
+        // Aucun projet trouvé
+        if (!$project) {
+            return new RedirectResponse($this->generateUrl('home'));
+        }
+
+        // Utilisateur non connecté
+        if(!$security->getUser()){
+            return new RedirectResponse($this->generateUrl('app_login'));
+        }
+
+        // Utilisateur non créateur
+        if($security->getUser() != $project->getUser()){
+            return new RedirectResponse($this->generateUrl('home'));
+        }    
+        
+        // Supprimer le projet
+        $entityManager->remove($project);
+        $entityManager->flush();
+        
+
+        return new RedirectResponse($request->headers->get('referer'));
+    } 
 }

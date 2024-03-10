@@ -30,13 +30,13 @@
 									</svg>Projets</h6>
 								<span class="text-secondary">{{ projet|length }}</span>
 							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+							{# <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
 								<h6 class="mb-0">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewbox="0 0 16 16">
 										<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
 									</svg>Likes</h6>
 								<span class="text-secondary">0</span>
-							</li>
+							</li> #}
 						</ul>
 					</div>
 				</div>
@@ -51,13 +51,13 @@
 						<ul class="list-group list-group-flush">
 							{% for projet in projet %}
 								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6 class="mb-0 col">{{ projet.name }}</h6>
-									<span class="mb-0 col">{{ projet.category.name }}</span>
-									<span class="mb-0 col">{{ projet.dateStart|date('m/Y') }}</span>
-									<span class="col"></span>
+									<h6 class="mb-0 col-3">{{ projet.name }}</h6>
+									<span class="mb-0 col-3">{{ projet.category.name }}</span>
+									<span class="mb-0 col-2">{{ projet.dateStart|date('m/Y') }}</span>
 									<div class="actions col">
 										<a href="{{ path('projet_edit', {'id': projet.id}) }}" class="btn">Editer</a>
 										<a href="{{ path('projet_show', {'id': projet.id}) }}" class="btn">Voir</a>
+										<a href="{{ path('projet_delete', {'id': projet.id}) }}" class="btn text-danger">Supprimer</a>
 									</div>
 								</li>
 							{% endfor %}

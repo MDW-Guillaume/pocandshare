@@ -1,16 +1,20 @@
 {% extends 'base.html.twig' %}
+{% set previousUrl = app.request.headers.get('referer') %}
 {% block projects %}active
 {% endblock %}
 {% block stylesheets %}
 	<link href="{{ asset('css/projectForm.css') }}" rel="stylesheet"/>
 {% endblock %}
 {% block body %}
-<div class="container my-5">
+<div class="container">
 	<section class="py-5">
-		<div class="container px-4 px-lg-5 my-5">
+		<div class="container px-4 px-lg-5">
+			<div class="mb-3">
+				<a href="{{ previousUrl }}" class="btn text-dark"><i class="bi-arrow-left"></i> Revenir en arrière</a>
+			</div>
 			<div class="row gx-4 gx-lg-5 align-items-center">
 				<div class="col-md-6">
-					<img class="card-img" style="max-height : 100%;" 
+					<img class="card-img" style="max-height : 700px; object-fit: contain;" 
 					{%if project.thumbnail%}
 						src="{{ asset(project.thumbnail) }}" 
 					{% else %} 
