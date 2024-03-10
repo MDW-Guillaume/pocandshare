@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block profile %}active
+{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('css/projectForm.css') }}" rel="stylesheet" />
+{% endblock %}
+{% block body %}
+    <div class="container my-5">
+        <h2>Modifier mon projet</h2>
+        {{ form_start(form) }}
+            <div class="row mb-5">
+                <div class="col">{{ form_row(form.name) }}</div>
+                <div class="col">{{ form_row(form.category) }}</div>
+                <div class="col col-tech">{{ form_row(form.tech) }}</div>
+            </div>
+            <div class="row mb-5">
+                <div class="col">{{ form_row(form.link) }}</div>
+                <div class="col">{{ form_row(form.thumbnail) }}</div>
+                <div class="col">{{ form_row(form.date_start) }}</div>
+            </div>
+            <div class="row">
+                <div class="col-8">{{ form_row(form.description) }}</div>
+                <div class="col-4">{{ form_row(form.date_end) }}</div>
+            </div>
+
+            <button type="submit" class="btn btn-outline-dark mt-3">Ajouter</button>
+            {{ form_end(form) }}
+    </div>
+{% endblock %}

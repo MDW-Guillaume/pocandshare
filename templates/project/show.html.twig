@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block projects %}active
+{% endblock %}
+{% block stylesheets %}
+	<link href="{{ asset('css/projectForm.css') }}" rel="stylesheet"/>
+{% endblock %}
+{% block body %}
+<div class="container my-5">
+	<section class="py-5">
+		<div class="container px-4 px-lg-5 my-5">
+			<div class="row gx-4 gx-lg-5 align-items-center">
+				<div class="col-md-6">
+					<img class="card-img" style="max-height : 100%;" 
+					{%if project.thumbnail%}
+						src="{{ asset(project.thumbnail) }}" 
+					{% else %} 
+						src="{{ asset('images/unvailable.jpg') }}"
+					{% endif %} alt="..." />
+				</div>
+				<div class="col-md-6">
+					<div class="small mb-1">{{ project.category }}</div>
+					<h1 class="display-5 fw-bolder">{{ project.name }}</h1>
+					<div class="fs-5">
+						{% if project.dateEnd %}
+							<span>Du {{ project.dateStart|date('m/Y') }} </span>
+							<span>au {{ project.dateEnd|date('m/Y') }}</span>
+						{% else %}
+							<span>Depuis {{ project.dateStart|date('F Y') }}</span>
+						{% endif %}
+					</div>
+					<div class="mb-5">
+						<span>Langages : {% for technology in project.tech %}
+						{{ technology.name }} 
+					{% endfor %}</span>
+					</div>
+					<p class="lead">{{project.description}}</p>
+					<div class="d-flex">
+						{% if project.link %}
+						<a href="{{ project.link }}" class="btn btn-outline-dark flex-shrink-0" target="_blank">
+							<i class="bi-link-45deg me-1"></i>
+							Lien du projet
+						</a>
+						{% else %}
+							<button href="" class="btn btn-outline-dark flex-shrink-0 disabled" type="button">
+								Lien à venir
+							</button>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

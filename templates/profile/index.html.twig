@@ -1,20 +1,71 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
+{% block title %}Profil
+{% endblock %}
+{% block profile %}active
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="container my-5">
+		<div class="main-body">
+			<div class="row gutters-sm">
+				<div class="col-md-4 mb-3">
+					<div class="card">
+						<div class="card-body">
+							<div class="d-flex flex-column align-items-center text-center">
+								<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+								<div class="mt-3">
+									<h4>{{ app.user.name ? app.user.name : 'Utilisateur' }}</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card mt-3">
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+								<h6 class="mb-0">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journals" viewbox="0 0 16 16">
+										<path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
+										<path d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0"/>
+									</svg>Projets</h6>
+								<span class="text-secondary">{{ projet|length }}</span>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+								<h6 class="mb-0">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewbox="0 0 16 16">
+										<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+									</svg>Likes</h6>
+								<span class="text-secondary">0</span>
+							</li>
+						</ul>
+					</div>
+				</div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+				<div class="col-md-8">
+					<div class="d-flex justify-content-end mb-3">
+						<a href="{{ path('projet_add') }}" class="btn">
+							<i class="bi-plus-lg"></i>
+							Ajouter un projet</a>
+					</div>
+					<div class="card">
+						<ul class="list-group list-group-flush">
+							{% for projet in projet %}
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									<h6 class="mb-0 col">{{ projet.name }}</h6>
+									<span class="mb-0 col">{{ projet.category.name }}</span>
+									<span class="mb-0 col">{{ projet.dateStart|date('m/Y') }}</span>
+									<span class="col"></span>
+									<div class="actions col">
+										<a href="{{ path('projet_edit', {'id': projet.id}) }}" class="btn">Editer</a>
+										<a href="{{ path('projet_show', {'id': projet.id}) }}" class="btn">Voir</a>
+									</div>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/sv_poc/pocandshare/src/Controller/ProfileController.php</code></li>
-        <li>Your template at <code>/var/www/sv_poc/pocandshare/templates/profile/index.html.twig</code></li>
-    </ul>
-</div>
+		</div>
+	</div>
 {% endblock %}

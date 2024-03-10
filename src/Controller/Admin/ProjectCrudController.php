@@ -43,8 +43,9 @@ class ProjectCrudController extends AbstractCrudController
         yield TextEditorField::new('description')->hideOnIndex();
         yield ImageField::new('thumbnail')
         ->setUploadDir('public/images')
-        // ->setBasePath('public/images')
+        ->setBasePath('public/images')
         ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]');
+        yield TextField::new('link')->hideOnIndex();
         
         yield FormField::addTab('Dates');
         yield DateField::new('date_start')->hideOnIndex();

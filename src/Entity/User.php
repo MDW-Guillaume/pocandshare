@@ -18,6 +18,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 255)]
+    private $name;
+
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
@@ -39,6 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->projects = new ArrayCollection();
+        $this->roles = ['ROLE_USER'];
     }
 
     #[ORM\OneToMany(mappedBy: 'user', orphanRemoval: true)]
@@ -46,6 +50,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     public function getEmail(): ?string

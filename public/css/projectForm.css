@@ -1,0 +1,18 @@
+.col > div > label,
+.col-4 > div > label,
+.col-8 > div > label{
+    width : 100%;
+}
+
+.col-tech > div > #project_tech > input{
+    width : 5%;
+}
+
+.col-tech > div > #project_tech > label{
+    width :95%;
+}
+
+textarea{
+    width: 90%;
+    height: 150px;
+}
